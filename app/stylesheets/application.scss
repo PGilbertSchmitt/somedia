@@ -1,0 +1,11 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ */
+
+ @import "vendor/normalize.scss";
+ @import "vendor/skeleton.scss";
+ 
+ @import "core/fonts.scss";
+ @import "core/colors.scss";
+ @import "core/layout.scss";

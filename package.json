@@ -1,0 +1,43 @@
+{
+  "name": "somedia",
+  "version": "1.0.0",
+  "description": "Some media page for a Raspberry Pi",
+  "main": "src/index.tsx",
+  "license": "MIT",
+  "author": {
+    "email": "PGilbertSchmitt@gmail.com",
+    "name": "P. Gilbert Schmitt",
+    "url": "http://www.gilly.bio"
+  },
+  "scripts": {
+    "webpack": "webpack",
+    "jswatch": "webpack -w",
+    "scss": "scss app/stylesheets/application.scss:dist/styles.css",
+    "lint": "tslint -c tslint.json src/**/*.{ts,tsx}",
+    "live": "live-server"
+  },
+  "dependencies": {
+    "lodash": "^4.17.5",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-redux": "^5.0.7",
+    "react-router-dom": "^4.2.2",
+    "redux": "^3.7.2",
+    "redux-thunk": "^2.2.0",
+    "typescript": "^2.7.2"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.104",
+    "@types/react": "^16.0.38",
+    "@types/react-dom": "^16.0.4",
+    "@types/react-redux": "^5.0.15",
+    "@types/react-router-dom": "^4.2.4",
+    "live-server": "^1.2.0",
+    "source-map-loader": "^0.2.3",
+    "ts-loader": "^3.5.0",
+    "tslint": "^5.9.1",
+    "tslint-react": "^3.5.1",
+    "webpack": "^3.11.0",
+    "webpack-fix-default-import-plugin": "^1.0.3"
+  }
+}
