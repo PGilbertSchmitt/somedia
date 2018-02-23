@@ -1,12 +1,12 @@
 {
   "defaultSeverity": "error",
   "extends": [
-    "tslint:latest",
     "tslint-react"
   ],
   "rules": {
     "semicolon": true,
     "triple-equals": true,
-    "no-console": false
+    "no-console": false,
+    "no-submodule-imports": false
   }
 }
