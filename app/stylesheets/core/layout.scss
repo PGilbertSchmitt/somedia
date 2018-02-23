@@ -17,8 +17,7 @@ body {
     }
 
     div.main {
-      overflow-y: scroll;
-      -webkit-overflow-scrolling: touch;
+      overflow-y: hidden;
       flex: auto;
       background-color: $grey;
     }
