@@ -11,8 +11,9 @@
   },
   "scripts": {
     "webpack": "webpack",
-    "jswatch": "webpack -w",
-    "scss": "scss app/stylesheets/application.scss:dist/styles.css",
+    "watch": "webpack -w",
+    "scss": "scss --watch app/stylesheets/application.scss:dist/styles.css",
+    "style": "scss app/stylesheets/application.scss:dist/styles.css",
     "lint": "tslint -c tslint.json src/**/*.{ts,tsx}",
     "live": "live-server"
   },
