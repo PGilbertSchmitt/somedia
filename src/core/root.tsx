@@ -1,8 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 
-import Footer from "components/header";
-import Header from "components/footer";
+import Footer from "components/footer";
+import Header from "components/header";
 import Main from "core/main";
 
 const Root: React.SFC = () => (
