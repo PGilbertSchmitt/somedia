@@ -11,7 +11,9 @@ export interface ISelectableChild extends React.Component {
 }
 
 interface ISelectableProps {
-  children?: React.SFC;
+  child: ISelectableChild;
+  select: boolean;
+  setActive?: boolean;
 }
 
 interface ISelectableState {
@@ -24,6 +26,24 @@ class Selectable extends Component<ISelectableProps, ISelectableState> {
     this.state = {
       active: false
     };
+  }
+
+  componentWillReceiveProps(newProps: ISelectableProps) {
+    if (newProps.select) {
+      this.props.child.select();
+    }
+
+    if (newProps.setActive !== this.state.active) {
+      this.setState({ active: newProps.setActive });
+    }
+  }
+
+  render() {
+    return (
+      <div>
+        {this.props.child.render()};
+      </div>
+    );
   }
 }
 
