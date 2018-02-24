@@ -9,7 +9,7 @@ export interface ISelectableChild extends React.Component {
 interface ISelectableProps {
   child: ISelectableChild;
   select: boolean;
-  setActive?: boolean;
+  active: boolean;
 }
 
 interface ISelectableState {
@@ -22,6 +22,8 @@ class Selectable extends Component<ISelectableProps, ISelectableState> {
     this.state = {
       active: false
     };
+
+    this.className = this.className.bind(this);
   }
 
   componentWillReceiveProps(newProps: ISelectableProps) {
@@ -29,14 +31,22 @@ class Selectable extends Component<ISelectableProps, ISelectableState> {
       this.props.child.select();
     }
 
-    if (newProps.setActive !== this.state.active) {
-      this.setState({ active: newProps.setActive });
+    if (newProps.active !== this.state.active) {
+      this.setState({ active: newProps.active });
     }
+  }
+
+  className() {
+    let classes = ["selectable"];
+    if (this.state.active) {
+      classes.push("active");
+    }
+    return classes.join(" ");
   }
 
   render() {
     return (
-      <div>
+      <div className={this.className()}>
         {this.props.child.render()};
       </div>
     );
