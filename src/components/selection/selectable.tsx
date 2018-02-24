@@ -1,13 +1,9 @@
 import React, { Component } from "react";
 
-// ISelectFunction and ISelectableChild describe the item that can be passed into Selectable
+// ISelectableChild describes the item that can be passed into Selectable
 // This functionality can be turned into a stand alone component for others.
-export interface ISelectFunction {
-  (): void;
-}
-
 export interface ISelectableChild extends React.Component {
-  select: ISelectFunction;
+  select(): void;
 }
 
 interface ISelectableProps {
