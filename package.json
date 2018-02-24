@@ -15,7 +15,7 @@
     "scss": "scss --watch app/stylesheets/application.scss:dist/styles.css",
     "style": "scss app/stylesheets/application.scss:dist/styles.css",
     "lint": "tslint -c tslint.json src/**/*.{ts,tsx}",
-    "live": "live-server"
+    "live": "live-server --open=/app/ --browser=chrome"
   },
   "dependencies": {
     "jquery": "^3.3.1",
