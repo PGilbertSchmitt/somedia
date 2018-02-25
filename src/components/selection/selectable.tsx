@@ -1,13 +1,9 @@
 import React, { Component } from "react";
 
-// ISelectableChild describes the item that can be passed into Selectable
-// This functionality can be turned into a stand alone component for others.
-export interface ISelectableChild extends Component {
-  select(): void;
-}
+import MediaLinkItem, { IMediaInfo } from "components/link_item";
 
 interface ISelectableProps {
-  child: ISelectableChild;
+  child: IMediaInfo;
   select: boolean;
   active: boolean;
 }
@@ -16,6 +12,8 @@ interface ISelectableState {
   active: boolean;
 }
 
+// This class is merely for seperating the styling of the child element,
+// it should pass on the selection prop to its child element
 class Selectable extends Component<ISelectableProps, ISelectableState> {
   constructor(props: ISelectableProps) {
     super(props);
@@ -28,7 +26,8 @@ class Selectable extends Component<ISelectableProps, ISelectableState> {
 
   componentWillReceiveProps(newProps: ISelectableProps) {
     if (newProps.select) {
-      this.props.child.select();
+      // this.props.child.select();
+      // Select child somehow
     }
 
     if (newProps.active !== this.state.active) {
@@ -47,7 +46,7 @@ class Selectable extends Component<ISelectableProps, ISelectableState> {
   render() {
     return (
       <div className={this.className()}>
-        {this.props.child.render()};
+        <MediaLinkItem select={this.props.select} media_data={this.props.child} />
       </div>
     );
   }

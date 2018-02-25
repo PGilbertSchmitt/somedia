@@ -1,10 +1,26 @@
 import React, { Component } from "react";
 
-import { ISelectableChild } from "components/selection/selectable";
+// import { ISelectableChild } from "components/selection/selectable";
+interface IMediaLinkProps {
+  select: boolean;
+  media_data: IMediaInfo;
+}
 
-class MediaLinkItem extends Component<{}, {}> implements ISelectableChild {
-  constructor(props: {}) {
+interface IMediaLinkState {
+  selected: boolean;
+}
+
+export interface IMediaInfo {
+  title: string;
+}
+
+class MediaLinkItem extends Component<IMediaLinkProps, {}> {
+  constructor(props: IMediaLinkProps) {
     super(props);
+
+    this.state = {
+      selected: props.select
+    };
   }
 
   select() {
@@ -20,3 +36,5 @@ class MediaLinkItem extends Component<{}, {}> implements ISelectableChild {
     );
   }
 }
+
+export default MediaLinkItem;

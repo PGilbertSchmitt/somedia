@@ -5,11 +5,19 @@ div.selection-grid {
   align-items: center;
   flex-wrap: nowrap;
 
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid green;
+
   div.selection-row {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     flex-wrap: nowrap;
+
+    height: fit-content;
+    box-sizing: border-box;
+    border: 1px solid yellow;
   }
 }

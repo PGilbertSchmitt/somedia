@@ -1,8 +1,9 @@
-import { merge, last, isEqual } from "lodash";
+import { clone, merge, last, isEqual } from "lodash";
 import React, { Component } from "react";
 import withStyle, { InjectedProps, InputSheet } from "react-typestyle-inline";
 
-import Selectable, { ISelectableChild } from "components/selection/selectable";
+import { IMediaInfo } from "components/link_item";
+import Selectable from "components/selection/selectable";
 
 /* SelectionGrid class for using arrow keys to navigate a grid of items and apply
  * special stylings to selected items
@@ -26,7 +27,7 @@ import Selectable, { ISelectableChild } from "components/selection/selectable";
 
 interface ISelectionGridProps {
   gridWidth: number;
-  children: ISelectableChild[];
+  children: IMediaInfo[];
 }
 
 interface Coordinate {
@@ -34,7 +35,7 @@ interface Coordinate {
   col: number;
 }
 
-type Row = ISelectableChild[];
+type Row = IMediaInfo[];
 
 type Grid = Row[];
 
@@ -46,15 +47,40 @@ interface ISelectionGridState {
 class SelectionGrid extends Component<ISelectionGridProps, ISelectionGridState> {
   constructor(props: ISelectionGridProps) {
     super(props);
-    this.setState({
-      currentActive: undefined
-    });
 
+    let grid = this.populateGrid();
+
+    this.state = {
+      currentActive: undefined,
+      grid
+    };
+
+    this.populateGrid = this.populateGrid.bind(this);
     this.moveUp = this.moveUp.bind(this);
     this.moveDown = this.moveDown.bind(this);
     this.moveRight = this.moveRight.bind(this);
     this.moveLeft = this.moveLeft.bind(this);
     this.renderGrid = this.renderGrid.bind(this);
+  }
+
+  populateGrid(): IMediaInfo[][] {
+    console.log("Populating grid");
+    let grid: Grid = [];
+    let { children, gridWidth } = this.props;
+    let childItems = children.slice(0) as IMediaInfo[];
+
+    while (childItems.length > 0) {
+      grid.push([]);
+      for (let i = 0; i < gridWidth; i++) {
+        if (childItems.length === 0) {
+          break;
+        }
+
+        last(grid).push(childItems.shift());
+      }
+    }
+
+    return grid;
   }
 
   // This move logic can be cleaned up a bit, though many of the parts can be reused
@@ -128,7 +154,7 @@ class SelectionGrid extends Component<ISelectionGridProps, ISelectionGridState> 
   }
 
   private renderRow(row: Row, rowNum: number, currentActive: Coordinate) {
-    return row.map((child: ISelectableChild, idx: number) => {
+    return row.map((child: IMediaInfo, idx: number) => {
       let currentCoordinate = { row: rowNum, col: idx };
       let active = isEqual(currentCoordinate, currentActive);
       return (
@@ -139,8 +165,10 @@ class SelectionGrid extends Component<ISelectionGridProps, ISelectionGridState> 
 
   private renderGrid() {
     let { grid, currentActive } = this.state;
+    console.log(grid);
 
     return grid.map((row: Row, idx: number) => {
+      console.log(row);
       return (
         <div className="selection-row" key="row-${idx}">
           {this.renderRow(row, idx, currentActive)}
@@ -152,6 +180,7 @@ class SelectionGrid extends Component<ISelectionGridProps, ISelectionGridState> 
   render() {
     return (
       <div className="selection-grid">
+        <p>Render grid plz</p>
         {this.renderGrid()}
       </div>
     );
