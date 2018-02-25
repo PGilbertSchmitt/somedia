@@ -1,5 +1,5 @@
 import { clone, merge, last, isEqual } from "lodash";
-import React, { Component } from "react";
+import React, { Component, SyntheticEvent } from "react";
 import withStyle, { InjectedProps, InputSheet } from "react-typestyle-inline";
 
 import { IMediaInfo } from "components/link_item";
@@ -63,6 +63,29 @@ class SelectionGrid extends Component<ISelectionGridProps, ISelectionGridState> 
     this.renderGrid = this.renderGrid.bind(this);
   }
 
+  componentDidMount() {
+    document.addEventListener("keydown", (ev: any) => {
+      switch (ev.key) {
+        case "ArrowUp":
+          ev.preventDefault();
+          this.moveUp();
+          break;
+        case "ArrowDown":
+          ev.preventDefault();
+          this.moveDown();
+          break;
+        case "ArrowLeft":
+          ev.preventDefault();
+          this.moveLeft();
+          break;
+        case "ArrowRight":
+          ev.preventDefault();
+          this.moveRight();
+          break;
+      }
+    });
+  }
+
   populateGrid(): IMediaInfo[][] {
     console.log("Populating grid");
     let grid: Grid = [];
@@ -89,8 +112,27 @@ class SelectionGrid extends Component<ISelectionGridProps, ISelectionGridState> 
     return { row, col };
   }
 
+  ensureCurrentActive(): boolean {
+    let co = this.state.currentActive;
+    if (!co) {
+      this.setState({
+        currentActive: {
+          row: 0,
+          col: 0
+        }
+      });
+      return true;
+    }
+    return false;
+  }
+
   moveUp(): void {
+    if (this.ensureCurrentActive()) {
+      return;
+    }
+
     let { grid, currentActive: co } = this.state;
+
     let h = grid.length;
 
     if (this.firstRow(co.row)) {
@@ -109,10 +151,14 @@ class SelectionGrid extends Component<ISelectionGridProps, ISelectionGridState> 
   // This one is too difficult to do the if/else way, and looks cleaner. Might use
   // this for inspiration to clean up the others. Feels wrong somehow, though...
   moveDown(): void {
+    if (this.ensureCurrentActive()) {
+      return;
+    }
+
     let { grid, currentActive: co } = this.state;
     let newCo = this.coordinate(co.row + 1, co.col);
 
-    if (!grid[newCo.row][newCo.col]) {
+    if (!grid[newCo.row] || !grid[newCo.row][newCo.col]) {
       newCo.row = 0;
     }
 
@@ -120,6 +166,10 @@ class SelectionGrid extends Component<ISelectionGridProps, ISelectionGridState> 
   }
 
   moveRight(): void {
+    if (this.ensureCurrentActive()) {
+      return;
+    }
+
     let { grid, currentActive: co } = this.state;
 
     if (this.lastInRow(grid, co)) {
@@ -136,6 +186,10 @@ class SelectionGrid extends Component<ISelectionGridProps, ISelectionGridState> 
   }
 
   moveLeft(): void {
+    if (this.ensureCurrentActive()) {
+      return;
+    }
+
     let { grid, currentActive: co } = this.state;
     let w = this.props.gridWidth;
     let h = grid.length;
@@ -165,12 +219,11 @@ class SelectionGrid extends Component<ISelectionGridProps, ISelectionGridState> 
 
   private renderGrid() {
     let { grid, currentActive } = this.state;
-    console.log(grid);
+    console.log(currentActive);
 
     return grid.map((row: Row, idx: number) => {
-      console.log(row);
       return (
-        <div className="selection-row" key="row-${idx}">
+        <div className="selection-row" key={idx}>
           {this.renderRow(row, idx, currentActive)}
         </div>
       );
