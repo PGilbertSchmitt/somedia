@@ -37,7 +37,7 @@ class Selectable extends Component<ISelectableProps, ISelectableState> {
   }
 
   className() {
-    let classes = ["selectable"];
+    let classes = ["selection-item"];
     if (this.state.active) {
       classes.push("active");
     }

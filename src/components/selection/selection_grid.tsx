@@ -1,7 +1,8 @@
-import { merge, last } from "lodash";
+import { merge, last, isEqual } from "lodash";
 import React, { Component } from "react";
+import withStyle, { InjectedProps, InputSheet } from "react-typestyle-inline";
 
-import Selectable from "./selectable";
+import Selectable, { ISelectableChild } from "./selectable";
 
 /* SelectionGrid class for using arrow keys to navigate a grid of items and apply
  * special stylings to selected items
@@ -25,7 +26,7 @@ import Selectable from "./selectable";
 
 interface ISelectionGridProps {
   gridWidth: number;
-  children: Component[];
+  children: ISelectableChild[];
 }
 
 interface Coordinate {
@@ -33,7 +34,7 @@ interface Coordinate {
   col: number;
 }
 
-type Row = Selectable[];
+type Row = ISelectableChild[];
 
 type Grid = Row[];
 
@@ -53,6 +54,7 @@ class SelectionGrid extends Component<ISelectionGridProps, ISelectionGridState> 
     this.moveDown = this.moveDown.bind(this);
     this.moveRight = this.moveRight.bind(this);
     this.moveLeft = this.moveLeft.bind(this);
+    this.renderGrid = this.renderGrid.bind(this);
   }
 
   // This move logic can be cleaned up a bit, though many of the parts can be reused
@@ -125,10 +127,32 @@ class SelectionGrid extends Component<ISelectionGridProps, ISelectionGridState> 
     this.setState({ currentActive: co });
   }
 
+  private renderRow(row: Row, rowNum: number, currentActive: Coordinate) {
+    return row.map((child: ISelectableChild, idx: number) => {
+      let currentCoordinate = { row: rowNum, col: idx };
+      let active = isEqual(currentCoordinate, currentActive);
+      return (
+        <Selectable child={child} select={false} active={active} key={idx} />
+      );
+    });
+  }
+
+  private renderGrid() {
+    let { grid, currentActive } = this.state;
+
+    return grid.map((row: Row, idx: number) => {
+      return (
+        <div className="selection-row" key="row-${idx}">
+          {this.renderRow(row, idx, currentActive)}
+        </div>
+      );
+    });
+  }
+
   render() {
     return (
-      <div>
-        grid stuff goes heres
+      <div className="selection-grid">
+        {this.renderGrid()}
       </div>
     );
   }
