@@ -2,7 +2,7 @@ import { merge, last, isEqual } from "lodash";
 import React, { Component } from "react";
 import withStyle, { InjectedProps, InputSheet } from "react-typestyle-inline";
 
-import Selectable, { ISelectableChild } from "./selectable";
+import Selectable, { ISelectableChild } from "components/selection/selectable";
 
 /* SelectionGrid class for using arrow keys to navigate a grid of items and apply
  * special stylings to selected items
