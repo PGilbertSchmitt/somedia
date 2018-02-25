@@ -59,7 +59,7 @@ class SelectionGrid extends Component<ISelectionGridProps, ISelectionGridState> 
 
   // This move logic can be cleaned up a bit, though many of the parts can be reused
 
-  coordinate(row, col: number): Coordinate {
+  coordinate(row: number, col: number): Coordinate {
     return { row, col };
   }
 
@@ -81,7 +81,7 @@ class SelectionGrid extends Component<ISelectionGridProps, ISelectionGridState> 
   }
 
   // This one is too difficult to do the if/else way, and looks cleaner. Might use
-  // this one for inspiration to clean up the others. Feels wrong somehow, though...
+  // this for inspiration to clean up the others. Feels wrong somehow, though...
   moveDown(): void {
     let { grid, currentActive: co } = this.state;
     let newCo = this.coordinate(co.row + 1, co.col);
