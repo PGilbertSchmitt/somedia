@@ -173,11 +173,7 @@ class SelectionGrid extends Component<ISelectionGridProps, ISelectionGridState> 
     let { grid, currentActive: co } = this.state;
 
     if (this.lastInRow(grid, co)) {
-      if (this.lastRow(grid, co)) {
-        co = this.coordinate(0, 0);
-      } else {
-        co = this.coordinate(co.row + 1, 0);
-      }
+      co = this.coordinate(co.row, 0);
     } else {
       co = this.coordinate(co.row, co.col + 1);
     }
@@ -195,10 +191,10 @@ class SelectionGrid extends Component<ISelectionGridProps, ISelectionGridState> 
     let h = grid.length;
 
     if (this.firstInRow(co.col)) {
-      if (this.firstRow(co.row)) {
-        co = this.coordinate(h - 1, last(grid).length - 1);
+      if (this.lastRow(grid, co)) {
+        co = this.coordinate(co.row, last(grid).length - 1);
       } else {
-        co = this.coordinate(co.row - 1, w - 1);
+        co = this.coordinate(co.row, w - 1);
       }
     } else {
       co = this.coordinate(co.row, co.col - 1);
