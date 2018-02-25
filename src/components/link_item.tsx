@@ -31,7 +31,7 @@ class MediaLinkItem extends Component<IMediaLinkProps, {}> {
   render() {
     return (
       <div className="media-link-item">
-        <h4>{this.props.media_data.title}</h3>
+        <h4>{this.props.media_data.title}</h4>
       </div>
     );
   }
