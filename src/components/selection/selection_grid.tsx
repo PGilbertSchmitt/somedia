@@ -180,7 +180,6 @@ class SelectionGrid extends Component<ISelectionGridProps, ISelectionGridState> 
   render() {
     return (
       <div className="selection-grid">
-        <p>Render grid plz</p>
         {this.renderGrid()}
       </div>
     );
