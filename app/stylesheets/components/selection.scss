@@ -8,7 +8,6 @@ div.selection-grid {
   width: fit-content;
   margin: 0 auto;
   box-sizing: border-box;
-  border: 1px solid green;
 
   div.selection-row {
     display: flex;
@@ -20,17 +19,22 @@ div.selection-grid {
     height: fit-content;
     width: fit-content;
     box-sizing: border-box;
-    border: 1px solid yellow;
+
+    div.selection-item {
+      border-radius: 100%;
+      margin: 20px;
+    }
 
     div.media-link-item {
-      border: 1px solid black;
       height: 150px;
       width: 150px;
-      margin: 20px 30px;
+      margin: 20px 20px;
+      border-radius: 100%;
+      background-color: blue;
     }
 
     div.active {
-      background-color: orange;
+      background-color: $selected-color;
     }
   }
 }

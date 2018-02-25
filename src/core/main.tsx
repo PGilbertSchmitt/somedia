@@ -5,7 +5,6 @@ import MediaLinkItem, { IMediaInfo } from "components/link_item";
 
 const Main: React.SFC = () => (
   <div className="main">
-    <h1>This is the main page.</h1>
     <SelectionGrid gridWidth={4} children={mediaElements()} />
   </div>
 );
