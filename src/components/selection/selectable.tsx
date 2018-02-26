@@ -25,11 +25,6 @@ class Selectable extends Component<ISelectableProps, ISelectableState> {
   }
 
   componentWillReceiveProps(newProps: ISelectableProps) {
-    if (newProps.select) {
-      // this.props.child.select();
-      // Select child somehow
-    }
-
     if (newProps.active !== this.state.active) {
       this.setState({ active: newProps.active });
     }

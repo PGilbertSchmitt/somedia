@@ -13,6 +13,7 @@ interface IMediaLinkState {
 export interface IMediaInfo {
   title: string;
   imagePath: string;
+  href: string;
 }
 
 class MediaLinkItem extends Component<IMediaLinkProps, {}> {
@@ -22,11 +23,23 @@ class MediaLinkItem extends Component<IMediaLinkProps, {}> {
     this.state = {
       selected: props.select
     };
+    console.log(this.props.media_data.title + ": " + props.select);
+
+    if (props.select) {
+      this.select();
+    }
+  }
+
+  componentWillReceiveProps(props: IMediaLinkProps) {
+    if (props.select) {
+      // Now leaving the page
+      window.location.href = this.props.media_data.href;
+    }
   }
 
   select() {
     // Selection happens here
-    console.log("I've been selected!");
+    console.log(this.props.media_data.title);
   }
 
   render() {

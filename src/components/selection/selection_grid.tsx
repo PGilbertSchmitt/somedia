@@ -41,6 +41,7 @@ type Grid = Row[];
 
 interface ISelectionGridState {
   currentActive: Coordinate;
+  selected: boolean;
   grid: Grid;
 }
 
@@ -52,6 +53,7 @@ class SelectionGrid extends Component<ISelectionGridProps, ISelectionGridState> 
 
     this.state = {
       currentActive: undefined,
+      selected: false,
       grid
     };
 
@@ -60,6 +62,7 @@ class SelectionGrid extends Component<ISelectionGridProps, ISelectionGridState> 
     this.moveDown = this.moveDown.bind(this);
     this.moveRight = this.moveRight.bind(this);
     this.moveLeft = this.moveLeft.bind(this);
+    this.select = this.select.bind(this);
     this.renderGrid = this.renderGrid.bind(this);
   }
 
@@ -82,12 +85,16 @@ class SelectionGrid extends Component<ISelectionGridProps, ISelectionGridState> 
           ev.preventDefault();
           this.moveRight();
           break;
+        case " ":
+        case "Enter":
+          ev.preventDefault();
+          this.select();
+          break;
       }
     });
   }
 
   populateGrid(): IMediaInfo[][] {
-    console.log("Populating grid");
     let grid: Grid = [];
     let { children, gridWidth } = this.props;
     let childItems = children.slice(0) as IMediaInfo[];
@@ -203,24 +210,30 @@ class SelectionGrid extends Component<ISelectionGridProps, ISelectionGridState> 
     this.setState({ currentActive: co });
   }
 
-  private renderRow(row: Row, rowNum: number, currentActive: Coordinate) {
+  select() {
+    this.setState({
+      selected: true
+    });
+  }
+
+  private renderRow(row: Row, rowNum: number, currentActive: Coordinate, isSelected: boolean) {
     return row.map((child: IMediaInfo, idx: number) => {
       let currentCoordinate = { row: rowNum, col: idx };
       let active = isEqual(currentCoordinate, currentActive);
+      let selected = isSelected && active;
       return (
-        <Selectable child={child} select={false} active={active} key={idx} />
+        <Selectable child={child} select={selected} active={active} key={idx} />
       );
     });
   }
 
   private renderGrid() {
-    let { grid, currentActive } = this.state;
-    console.log(currentActive);
+    let { grid, currentActive, selected } = this.state;
 
     return grid.map((row: Row, idx: number) => {
       return (
         <div className="selection-row" key={idx}>
-          {this.renderRow(row, idx, currentActive)}
+          {this.renderRow(row, idx, currentActive, selected)}
         </div>
       );
     });
