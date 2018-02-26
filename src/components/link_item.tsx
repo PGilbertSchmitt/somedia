@@ -12,6 +12,7 @@ interface IMediaLinkState {
 
 export interface IMediaInfo {
   title: string;
+  imagePath: string;
 }
 
 class MediaLinkItem extends Component<IMediaLinkProps, {}> {
@@ -31,7 +32,7 @@ class MediaLinkItem extends Component<IMediaLinkProps, {}> {
   render() {
     return (
       <div className="media-link-item">
-        <h4>{this.props.media_data.title}</h4>
+        <img src={"./images/" + this.props.media_data.imagePath} />
       </div>
     );
   }
