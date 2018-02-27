@@ -1,6 +1,5 @@
 import { clone, merge, last, isEqual } from "lodash";
 import React, { Component, SyntheticEvent } from "react";
-import withStyle, { InjectedProps, InputSheet } from "react-typestyle-inline";
 
 import { IMediaInfo } from "components/link_item";
 import Selectable from "components/selection/selectable";
