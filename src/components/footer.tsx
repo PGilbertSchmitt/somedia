@@ -1,9 +1,17 @@
-import React from "react";
+import React, { Component } from "react";
 
-const Footer: React.SFC = () => (
-  <div className="footer">
-    This is the footer.
-  </div>
-);
+class Footer extends Component {
+  constructor(props: any) {
+    super(props);
+  }
+
+  render() {
+    return (
+      <div className="footer">
+        This is the footer.
+      </div>
+    );
+  }
+}
 
 export default Footer;
